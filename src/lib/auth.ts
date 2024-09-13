@@ -31,7 +31,7 @@ export const NEXTAUTH_CONFIG = {
         token.accessToken = account.access_token;
 
         // Store user details including the access token in your database.
-        await prisma.user.upsert({
+        const user = await prisma.user.upsert({
           where: { email: token.email },
           update: { accessToken: token.accessToken },
           create: {
@@ -41,6 +41,7 @@ export const NEXTAUTH_CONFIG = {
             accessToken: token.accessToken,
           },
         });
+        token.isAdmin = user.isAdmin;
       }
       console.log("jwt", token, account);
       return token;
@@ -48,6 +49,7 @@ export const NEXTAUTH_CONFIG = {
 
     async session({ session, token }: any) {
       session.accessToken = token.accessToken;
+      session.isAdmin = token.isAdmin;
       console.log("session", session, token);
       return session;
     },
