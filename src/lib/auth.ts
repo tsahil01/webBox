@@ -37,6 +37,7 @@ export const NEXTAUTH_CONFIG = {
           create: {
             username: token.name,
             email: token.email,
+            provider: account.provider,
             accessToken: token.accessToken,
           },
         });
