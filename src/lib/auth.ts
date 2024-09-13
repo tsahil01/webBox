@@ -26,7 +26,7 @@ export const NEXTAUTH_CONFIG = {
     },
 
     async jwt({ token, account }: any) {
-      console.log("JWT", token, account);
+      // console.log("JWT", token, account);
       if (account) {
         token.accessToken = account.access_token;
 
@@ -42,6 +42,7 @@ export const NEXTAUTH_CONFIG = {
           },
         });
         token.isAdmin = user.isAdmin;
+        // console.log("user", user);
       }
       console.log("jwt", token, account);
       return token;
@@ -50,12 +51,12 @@ export const NEXTAUTH_CONFIG = {
     async session({ session, token }: any) {
       session.accessToken = token.accessToken;
       session.isAdmin = token.isAdmin;
-      console.log("session", session, token);
+      // console.log("session", session, token);
       return session;
     },
 
     async redirect({ url, baseUrl }: any) {
-      console.log("redirect", url, baseUrl);
+      // console.log("redirect", url, baseUrl);
       return baseUrl;
     },
 
