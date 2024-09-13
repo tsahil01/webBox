@@ -11,7 +11,7 @@ export default function Home() {
     <>
       <div className="flex flex-col gap-6 items-center justify-center min-h-screen p-5">
         <h1 className="text-7xl font-bold">Hello World</h1>
-        User: {session?.user?.email}
+        User: {JSON.stringify(session?.user)} {status}
         <Button onClick={()=> signIn()}>Login</Button>
         <Button onClick={()=> signOut()}>Logout</Button>
       </div>
