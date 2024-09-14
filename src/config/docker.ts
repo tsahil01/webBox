@@ -43,6 +43,9 @@ export async function createContainer(imageName: string, cmd?: string[]) {
         AttachStdin: true,
         AttachStdout: true,
         AttachStderr: true,
+        HostConfig: {
+            NetworkMode: "my_network"
+        }
     }
     const newContainer = await docker.createContainer(containerCreateData);
     await newContainer.start();
