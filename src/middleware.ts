@@ -18,8 +18,6 @@ export default async function middleware(request: NextRequest) {
                 message: "You are not authorized to access this route"
             })
         }
-
-
     }
 
     return NextResponse.next();

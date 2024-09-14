@@ -22,10 +22,13 @@ export async function getContainers() {
 export async function deleteAllContainers() {
     const containers = await getContainers();
     
-    const del = containers.forEach((container: any) => {
-        const containerInstance = docker.getContainer(container.id);
-        containerInstance.stop();
-        containerInstance.remove();
+    const del = await containers.forEach(async (container: any) => {
+        const containerInstance = await docker.getContainer(container.id);
+        const data = await containerInstance.inspect();
+        if(data.State.Running){
+            await containerInstance.stop();
+        }
+        await containerInstance.remove();
     });
     console.log(del);
 }
