@@ -17,7 +17,7 @@ export const NEXTAUTH_CONFIG = {
 
   callbacks: {
     async signIn({ user, account, profile }: any) {
-      console.log("signIn", user, account, profile);
+      // console.log("signIn", user, account, profile);
 
       // If you need to perform actions based on sign-in, do it here.
       // However, it's better to store access token in the `jwt` callback.
@@ -44,7 +44,7 @@ export const NEXTAUTH_CONFIG = {
         token.isAdmin = user.isAdmin;
         // console.log("user", user);
       }
-      console.log("jwt", token, account);
+      // console.log("jwt", token, account);
       return token;
     },
 
