@@ -23,6 +23,10 @@ app.prepare().then(() => {
         console.log("Connected msg from server")
     })
 
+    io.on("disconnect", ()=>{
+        console.log("Disconnection")
+    })
+
     httpServer
         .once("error", (err) => {
             console.error(err);
