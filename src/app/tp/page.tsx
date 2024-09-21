@@ -1,4 +1,3 @@
-// page.tsx
 "use client";
 
 import Terminal from "@/components/term";
@@ -8,8 +7,7 @@ import { Terminal as XTerminal } from "@xterm/xterm";
 
 export default function Home() {
   const [isConnected, setIsConnected] = useState(false);
-  const [transport, setTransport] = useState("N/A");
-  const [containerId, setContainerId] = useState<string | null>('f67344cf4901');
+  const [containerId, setContainerId] = useState<string | null>("f67344cf4901");
   const terminalRef = useRef<HTMLDivElement>(null);
   const [term, setTerm] = useState<XTerminal | null>(null);
 
@@ -25,49 +23,49 @@ export default function Home() {
     const handleConnect = () => {
       console.log("Connected to the socket server");
       if (containerId) {
-        setTimeout(() => {
-          socket.emit("containerId", containerId);
-          setIsConnected(true);
-        }, 100); // A short delay to ensure the server is ready
+        socket.emit("containerId", containerId);
+        setIsConnected(true);
       } else {
         console.warn("Container ID is not available yet.");
       }
     };
 
-    socket.on("connect", handleConnect);
+    const handleOutput = (data: any) => {
+      if (newTerm) {
+        newTerm.write(data);
+      }
+    };
 
-    socket.on("disconnect", () => {
+    const handleDisconnect = () => {
       console.log("Disconnected from the socket server");
       setIsConnected(false);
-      setTransport("N/A");
-    });
+    };
 
-    socket.on("output", (data: any) => {
-      if (newTerm) {
-        newTerm.write(data); // Write output to terminal
-      }
-    });
+    // if (socket.connected) {
+      handleConnect();
+    // }
+    socket.on("disconnect", handleDisconnect);
+    socket.on("output", handleOutput);
 
     newTerm.onData((data: any) => {
       socket.emit("input", data);
     });
 
     if (terminalRef.current) {
-      newTerm.open(terminalRef.current); // Open terminal if ref exists
+      newTerm.open(terminalRef.current);
     }
 
     return () => {
       newTerm.dispose();
       socket.off("connect", handleConnect);
-      socket.off("disconnect");
-      socket.off("output");
+      socket.off("disconnect", handleDisconnect);
+      socket.off("output", handleOutput);
     };
-  }, [containerId]);
+  }, [containerId]); // Run effect only when containerId changes
 
   return (
     <div>
       <p>Status: {isConnected ? "connected" : "disconnected"}</p>
-      <p>Transport: {transport}</p>
       <Terminal terminalRef={terminalRef} containerId={containerId} />
     </div>
   );
