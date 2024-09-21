@@ -4,7 +4,7 @@ import { getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
 
 export default async function middleware(request: NextRequest) {
-    console.log("Middleware")
+    // console.log("Middleware")
 
     const token = await getToken({ // {name: , email: , picture: , sub: , accessToken: , isAdmin: , iat: , exp: , jti: }
         req: request
