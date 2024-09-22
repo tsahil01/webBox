@@ -1,17 +1,21 @@
 "use client";
 
 import Terminal from "@/components/term";
-import { socket } from "@/socket";
 import { useEffect, useRef, useState } from "react";
 import { Terminal as XTerminal } from "@xterm/xterm";
+import { useSocket } from "../hooks/useSocket";
 
 export default function Home() {
   const [isConnected, setIsConnected] = useState(false);
-  const [containerId, setContainerId] = useState<string | null>("f67344cf4901");
+  const [containerId, setContainerId] = useState<string | null>("203eba58e0e6");
   const terminalRef = useRef<HTMLDivElement>(null);
   const [term, setTerm] = useState<XTerminal | null>(null);
 
+  const socket = useSocket();
+
   useEffect(() => {
+    if (!socket) return;
+
     const newTerm = new XTerminal({
       cursorBlink: true,
       fontSize: 16,
@@ -41,11 +45,15 @@ export default function Home() {
       setIsConnected(false);
     };
 
-    // if (socket.connected) {
+    if (socket.connected) {
       handleConnect();
-    // }
+      setIsConnected(true);
+    }
+
+    socket.on("connect", handleConnect);
     socket.on("disconnect", handleDisconnect);
     socket.on("output", handleOutput);
+
 
     newTerm.onData((data: any) => {
       socket.emit("input", data);
@@ -57,12 +65,13 @@ export default function Home() {
 
     return () => {
       newTerm.dispose();
-      socket.off("connect", handleConnect);
-      socket.off("disconnect", handleDisconnect);
-      socket.off("output", handleOutput);
+      if (socket) {
+        socket.off("connect", handleConnect);
+        socket.off("disconnect", handleDisconnect);
+        socket.off("output", handleOutput);
+      }
     };
-  }, [containerId]); // Run effect only when containerId changes
-
+  }, [socket, containerId]);
   return (
     <div>
       <p>Status: {isConnected ? "connected" : "disconnected"}</p>
