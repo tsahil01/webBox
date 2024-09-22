@@ -9,7 +9,7 @@ import { useSocket } from "../hooks/useSocket";
 
 export default function Home() {
   const [isConnected, setIsConnected] = useState(false);
-  const [containerId, setContainerId] = useState<string | null>("203eba58e0e6");
+  const [containerId, setContainerId] = useState<string | null>("e5afc684150c");
   const terminalRef = useRef<HTMLDivElement>(null);
 
   const socket = useSocket();
@@ -19,11 +19,11 @@ export default function Home() {
 
     const newTerm = new XTerminal({
       cursorBlink: true,
-      fontSize: 16,
+      fontSize: 25,
       fontWeight: "800",
       fontFamily: "'JetBrains Mono', 'Fira Code', monospace",
       theme: {
-        background: '#1a1b26',
+        background: '#09090b',
         foreground: '#a9b1d6',
         cursor: '#f7768e',
         selection: 'rgba(73, 186, 255, 0.3)',
@@ -108,8 +108,8 @@ export default function Home() {
   }, [socket, containerId]);
 
   return (
-    <div className="p-4">
-      <p>Status: {isConnected ? "connected" : "disconnected"}</p>
+    <div className="my-auto h-screen p-6 bg-zinc-900 flex flex-col justify-center">
+      {/* <p>Status: {isConnected ? "connected" : "disconnected"}</p> */}
       <Terminal terminalRef={terminalRef} containerId={containerId} />
     </div>
   );
