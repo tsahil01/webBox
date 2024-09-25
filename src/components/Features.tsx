@@ -4,7 +4,7 @@ import Image from "next/image"
 export default function Features() {
   return (
     <>
-      <div className="container mx-auto flex flex-col gap-5 p-5 mt-4">
+      <div className="container mx-auto flex flex-col gap-5 md:p-5 mt-4">
         <h3 className="text-4xl md:text-5xl font-bold mx-auto">Our Features</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-7xl mx-auto p-6">
           <div className="flex flex-col md:grid md:grid-cols-2 gap-4 p-5 md:col-span-2 [background-image:radial-gradient(88%_100%_at_top,rgba(255,255,255,0.2),rgba(255,255,255,0))] bg-indigo-900 rounded-xl h-auto md:h-[400px]">
