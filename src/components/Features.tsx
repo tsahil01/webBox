@@ -29,7 +29,7 @@ export default function Features() {
 
   return (
     <motion.div
-      className="container mx-auto flex flex-col gap-5 md:p-5 mt-4"
+      className="container mx-auto flex flex-col gap-5 md:p-5"
       initial="hidden"
       animate="visible"
       variants={containerVariants}

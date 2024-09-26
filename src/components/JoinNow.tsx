@@ -24,7 +24,7 @@ export function JoinNow() {
     },
   ];
   return (
-    <div className="flex flex-col items-center justify-center md:h-[40rem] h-[20rem]">
+    <div className="flex flex-col items-center justify-center md:h-[40rem] h-[20rem] [background-image:radial-gradient(88%_100%_at_bottom,rgba(255,0,0,0.1),rgba(255,255,255,0))]">
       <p className="text-neutral-600 dark:text-neutral-200 text-xs sm:text-base  ">
         The road to freedom starts from here
       </p>
