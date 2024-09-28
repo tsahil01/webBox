@@ -1,9 +1,12 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 import { Button } from "./ui/button";
-import Image from "next/image";
 import { ModeToggle } from "./themeBtn";
-import { ChevronRight } from "lucide-react";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
 
 export function Navbar() {
   const { data: session, status } = useSession();
@@ -11,7 +14,7 @@ export function Navbar() {
     <>
       <div className="flex flex-row p-3 justify-between border-b container mx-auto">
         <div className="flex flex-row gap-3">
-          <div className="text-2xl font-bold my-auto">DevContainer</div>
+          <h3 className="text-2xl font-bold my-auto">DevSpace</h3>
         </div>
         <div className="flex flex-row gap-3">
           <ModeToggle />
@@ -19,7 +22,11 @@ export function Navbar() {
             <>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="icon" className="p-1 rounded-full">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="p-1 rounded-full"
+                  >
                     <img
                       src={session.user?.image}
                       alt="User img"
@@ -39,7 +46,9 @@ export function Navbar() {
           )}
           {status === "unauthenticated" && (
             <>
-              <Button onClick={() => signIn()}>Login</Button>
+              <Button variant={"outline"} onClick={() => signIn()}>
+                Login
+              </Button>
             </>
           )}
         </div>
