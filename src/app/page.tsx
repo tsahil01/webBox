@@ -11,6 +11,7 @@ import { Cover } from "@/components/ui/cover";
 import { VideoComponent } from "@/components/YTcomponent";
 import Features from "@/components/Features";
 import { JoinNow } from "@/components/JoinNow";
+import { Footer } from "@/components/Footer";
 
 export default function Home() {
   const { data: session, status } = useSession();
@@ -107,10 +108,16 @@ export default function Home() {
         <VideoComponent />
       </motion.div>
       <div className="mt-9"></div>
-      <motion.div className="mt-9 bg-primary/5 py-9 [background-image:radial-gradient(88%_100%_at_top,rgba(200,0,0,0.2),rgba(255,255,255,0))]" variants={itemVariants}>
+      <motion.div
+        className="mt-9 bg-primary/5 py-9 [background-image:radial-gradient(50%_60%_at_top,rgba(200,0,0,0.2),rgba(255,255,255,0))]"
+        variants={itemVariants}
+      >
         <Features />
       </motion.div>
-      <JoinNow/>
+      <motion.div variants={itemVariants}>
+        <JoinNow />
+      </motion.div>
+      <Footer />
     </motion.div>
   );
 }
