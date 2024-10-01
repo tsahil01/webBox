@@ -67,6 +67,7 @@ export const NEXTAUTH_CONFIG = {
           },
         });
         token.isAdmin = user.isAdmin;
+        token.userId = user.id;
         // console.log("user", user);
 
         if (account.provider == "credentials") {
@@ -85,6 +86,7 @@ export const NEXTAUTH_CONFIG = {
     async session({ session, token }: any) {
       session.accessToken = token.accessToken;
       session.isAdmin = token.isAdmin;
+      session.userId = token.userId;
       // console.log("session", session, token);
 
       if (token.expires && Date.now() / 1000 > token.expires) {

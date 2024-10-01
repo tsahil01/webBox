@@ -3,8 +3,14 @@
 import { motion } from "framer-motion";
 import { Button } from "./ui/button";
 import { techStacks } from "@/lib/techStack";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import { launchBox } from "@/app/actions/launchBox";
 
 export default function Boxes() {
+  const router = useRouter();
+  const { data: session, status } = useSession();
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -27,6 +33,8 @@ export default function Boxes() {
     },
   };
 
+  
+
   return (
     <motion.div
       className="container mx-auto flex flex-col gap-5 md:p-5"
@@ -34,6 +42,9 @@ export default function Boxes() {
       animate="visible"
       variants={containerVariants}
     >
+      <Button onClick={async () => launchBox("ubuntu", "")}>
+        LAUNCH UBUNTU
+      </Button>
       <motion.div
         className="grid grid-cols-1 md:grid-cols-3 gap-3 max-w-7xl mx-auto p-6"
         variants={containerVariants}
