@@ -7,8 +7,6 @@ export default function ImgAvatar({
   imgSrc: string | undefined | null;
   fallback: string;
 }) {
-    console.log("img:" ,imgSrc);
-    console.log("fb:" ,(fallback.split(" ")[0])[0]);
   return (
     <>
       <Avatar>
