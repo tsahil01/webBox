@@ -49,7 +49,9 @@ export default function Home() {
       animate="visible"
       variants={containerVariants}
     >
-      {JSON.stringify(session)}
+       <div className="bg-yellow-400 text-black">
+        {JSON.stringify(session)}
+      </div>
       <Navbar />
       <motion.div
         className="flex flex-col my-9 mb-5 gap-5 justify-center md:mx-6"

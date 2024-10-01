@@ -95,7 +95,7 @@ export const NEXTAUTH_CONFIG = {
     },
 
     async redirect({ url, baseUrl }: any) {
-      console.log("redirect", url, baseUrl);
+      // console.log("redirect", url, baseUrl);
       return baseUrl;
     },
 

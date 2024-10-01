@@ -31,7 +31,9 @@ export default function Page() {
       animate="visible"
       variants={containerVariants}
     >
-      {JSON.stringify(session)}
+      <div className="bg-yellow-400 text-black">
+        {JSON.stringify(session)}
+      </div>
       <Navbar />
       
     </motion.div>
