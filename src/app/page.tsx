@@ -2,8 +2,6 @@
 
 import { Navbar } from "@/components/navbar";
 import { Button } from "@/components/ui/button";
-import { createContainer } from "@/config/docker";
-import { getServerSession } from "next-auth";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { motion } from "framer-motion";
 import { ChevronRight } from "lucide-react";
@@ -12,9 +10,14 @@ import { VideoComponent } from "@/components/YTcomponent";
 import Features from "@/components/Features";
 import { JoinNow } from "@/components/JoinNow";
 import { Footer } from "@/components/Footer";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   const { data: session, status } = useSession();
+  const router = useRouter();
+  if (session != null) {
+    router.push("/boxes");
+  }
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -46,6 +49,7 @@ export default function Home() {
       animate="visible"
       variants={containerVariants}
     >
+      {JSON.stringify(session)}
       <Navbar />
       <motion.div
         className="flex flex-col my-9 mb-5 gap-5 justify-center md:mx-6"
@@ -86,7 +90,14 @@ export default function Home() {
         variants={itemVariants}
       >
         <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-          <Button className="text-xl p-6 my-auto gap-1 mx-auto inline-flex h-12 animate-shimmer items-center justify-center rounded-md border border-slate-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] px-6 font-medium text-slate-200 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
+          <Button
+            onClick={async () => {
+              if (status !== "authenticated") {
+                signIn("credentials");
+              }
+            }}
+            className="text-xl p-6 my-auto gap-1 mx-auto inline-flex h-12 animate-shimmer items-center justify-center rounded-md border border-slate-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] px-6 font-medium text-slate-200 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50"
+          >
             {status !== "authenticated" && (
               <>
                 Try Demo <ChevronRight />{" "}
