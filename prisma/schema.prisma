@@ -15,9 +15,9 @@ datasource db {
 
 model User {
   id          String      @id @default(cuid())
-  username    String      
+  username    String
   email       String      @unique
-  provider    String?      
+  provider    String?
   accessToken String?
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
@@ -26,31 +26,29 @@ model User {
 }
 
 model Guest {
-  id         String   @id
-  createdAt  DateTime @default(now())
-  expiresAt  DateTime
+  id        String   @id
+  createdAt DateTime @default(now())
+  expiresAt DateTime
 }
 
 model TechStack {
-  id          Int      @id @default(autoincrement())
-  name        String   @unique
+  id          Int         @id @default(autoincrement())
+  name        String      @unique
   description String?
   imageName   String
   containers  Container[]
 }
 
 model Container {
-  id             Int      @id @default(autoincrement())
-  guestId        String?
-  userId         String?
+  id            Int       @id @default(autoincrement())
+  guestId       String?
+  userId        String?
   techStackId   Int
-  containerName  String
-  status         String  @default("pending")
-  createdAt      DateTime @default(now())
-  expiresAt      DateTime?
-  user           User?     @relation(fields: [userId], references: [id])
-  techStack      TechStack @relation(fields: [techStackId], references: [id])
+  containerName String
+  containerId   String
+  status        String    @default("pending")
+  createdAt     DateTime  @default(now())
+  expiresAt     DateTime?
+  user          User?     @relation(fields: [userId], references: [id])
+  techStack     TechStack @relation(fields: [techStackId], references: [id])
 }
-
-
-
