@@ -7,6 +7,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+import ImgAvatar from "./Avatar";
 
 export function Navbar() {
   const { data: session, status } = useSession();
@@ -27,11 +28,12 @@ export function Navbar() {
                     size="icon"
                     className="p-1 rounded-full"
                   >
-                    <img
-                      src={session.user?.image}
-                      alt="User img"
-                      className="w-8 rounded-full my-auto"
-                    ></img>
+
+                    <ImgAvatar
+                      imgSrc={session.user?.image}
+                      fallback={`${session.user?.name}`}
+                    />
+                    
                     <span className="sr-only">Profile</span>
                   </Button>
                 </DropdownMenuTrigger>

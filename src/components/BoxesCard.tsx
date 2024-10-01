@@ -116,7 +116,7 @@ function Cols2Block({
             whileTap={{ scale: 0.95 }}
           />
         </div>
-        <div className="flex flex-col gap-5 justify-center md:p-4">
+        <div className="flex flex-col gap-5 justify-center md:p-4 ">
           <motion.h2
             className="text-3xl md:text-4xl font-bold text-center md:text-left text-white"
             variants={itemVariants}
@@ -131,16 +131,16 @@ function Cols2Block({
           </motion.p>
 
           <div className="flex md:flex-row flex-col justify-start">
-            <Button className="bg-primary/85 mt-4 font-bold flex flex-row gap-5 px-4 justify-center">
+            <Button className="mt-5 px-9 rounded-2xl font-bold text-md">
               Launch Now
             </Button>
           </div>
         </div>
-        <div className="hidden md:flex items-center justify-center">
+        <div className="hidden md:flex items-center justify-center ">
           <motion.img
             src={image}
             alt="vscode"
-            className="w-32 h-32 md:w-48 md:h-48"
+            className="w-32 h-32 md:w-72 md:h-72"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           />
@@ -191,7 +191,7 @@ function Cols1Block({
           </motion.p>
 
           <div className="flex md:flex-row flex-col justify-center">
-            <Button className="bg-primary/85 mt-4 font-bold flex flex-row gap-5 px-4 justify-center">
+            <Button className="mt-5 px-9 rounded-2xl font-bold text-md">
               Launch Now
             </Button>
           </div>
@@ -245,7 +245,7 @@ function Cols3Block({
             {description}
           </motion.p>
           <div className="flex md:flex-row flex-col justify-start">
-            <Button className="bg-primary/85 mt-4 font-bold flex flex-row gap-5 px-4 justify-center">
+            <Button className="mt-5 px-9 rounded-2xl font-bold text-md">
               Launch Now
             </Button>
           </div>
@@ -259,7 +259,7 @@ function Cols3Block({
             <motion.img
               src={image}
               alt="Various technology stack logos"
-              className="w-32 h-32 md:w-72 md:h-72 relative z-10"
+              className="w-32 h-32 md:w-96 md:h-96 relative z-10"
             />
           </motion.div>
         </div>

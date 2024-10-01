@@ -51,23 +51,26 @@ export default function Page() {
       <div className="bg-yellow-400 text-black">{JSON.stringify(session)}</div>
 
       <Navbar />
+      <div className="bg-primary/1 [background-image:radial-gradient(80%_80%_at_left_bottom,rgba(200,0,0,0.2),rgba(255,255,255,0))]">
+        <div className="container mx-auto px-5 flex flex-row justify-between my-auto h-full">
+          <h3 className="md:text-4xl text-xl font-semibold mt-2">
+            {getGreeting()}, {session?.user?.name?.split(" ")[0]}
+          </h3>
 
-      <div className="container mx-auto px-5 flex flex-row justify-between my-auto">
-
-        <h3 className="md:text-4xl text-xl font-semibold mt-2">
-          {getGreeting()}, {session?.user?.name?.split(" ")[0]}
-        </h3>
-
-        <div className="my-auto">
-          <div className="flex mx-auto w-xl  justify-between px-2">
-            <Input type="email" placeholder="Search Container" className="min-w-md rounded-full border outline-none"/>
+          <div className="my-auto">
+            <div className="flex mx-auto w-xl  justify-between px-2">
+              <Input
+                type="email"
+                placeholder="Search Container"
+                className="min-w-md rounded-full border outline-none"
+              />
+            </div>
           </div>
         </div>
 
-      </div>
-
-      <div className="container mx-auto">
-        <Boxes />
+        <div className="container mx-auto">
+          <Boxes />
+        </div>
       </div>
     </motion.div>
   );
