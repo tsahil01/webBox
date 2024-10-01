@@ -50,5 +50,7 @@ export async function createContainer(imageName: string, cmd?: string[]) {
     const newContainer = await docker.createContainer(containerCreateData);
     await newContainer.start();
 
-    return await newContainer.id;
+    const containerInfo = await docker.getContainer(newContainer.id);
+    const containerDetails = await containerInfo.inspect();
+    return await containerDetails;
 }

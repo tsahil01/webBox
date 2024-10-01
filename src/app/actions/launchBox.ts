@@ -9,7 +9,7 @@ import { redirect } from "next/navigation";
 
 export async function launchBox(imgName: string, cmd: string) {
     const session = await getServerSession(NEXTAUTH_CONFIG);
-    console.log(session);
+    // console.log(session);
     let containerId;
 
     if (session) {
@@ -27,19 +27,19 @@ export async function launchBox(imgName: string, cmd: string) {
 
         // console.log("TechStack: ", techStack);
 
-        containerId = await createContainer(imgName);
-        console.log(containerId);
+        const container = await createContainer(imgName);
+        containerId = container.Id;
 
         // add data in container table =>
 
         if (session?.userId) {
-            console.log("user: ", session.userId);
+            // console.log("user: ", session.userId);
           const createContainer = await prisma.container.create({
             data: {
               userId: session?.userId,
               techStackId: techStack?.id,
               status: "started",
-              containerName: imgName, // TODO: add container name from docker.ts
+              containerName: container.Name,
               containerId: containerId,
             },
           });
