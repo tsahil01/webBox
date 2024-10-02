@@ -38,7 +38,7 @@ export async function launchBox(imgName: string, cmd: string) {
             data: {
               userId: session?.userId,
               techStackId: techStack?.id,
-              status: "started",
+              status: 'CREATED',
               containerName: container.Name,
               containerId: containerId,
             },

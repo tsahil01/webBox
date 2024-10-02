@@ -39,6 +39,14 @@ model TechStack {
   containers  Container[]
 }
 
+
+enum Status {
+  PENDING
+  CREATED
+  STARTED
+}
+
+
 model Container {
   id            Int       @id @default(autoincrement())
   guestId       String?
@@ -46,7 +54,7 @@ model Container {
   techStackId   Int
   containerName String
   containerId   String
-  status        String    @default("pending")
+  status        Status    @default(PENDING)
   createdAt     DateTime  @default(now())
   expiresAt     DateTime?
   user          User?     @relation(fields: [userId], references: [id])
