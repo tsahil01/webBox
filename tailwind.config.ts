@@ -16,6 +16,11 @@ const config: Config = {
 	],
 	theme: {
 		extend: {
+			backgroundImage: {
+				'macOS-catalina-dark': "url('/macOS_Catalina_Dark.jpg')",
+				'macOS_ventura_dark': "url('/macOS_Ventura_Dark.jpg')",
+				'macOS_night_dark': "url('/macOS_night_Dark.jpg')",
+			},
 			colors: {
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
