@@ -1,13 +1,11 @@
 "use client";
 
 import { Navbar } from "@/components/navbar";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import Boxes from "@/components/BoxesCard";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Search } from "lucide-react";
 
 export default function Page() {
   const { data: session, status } = useSession();

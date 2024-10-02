@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { Terminal as XTerminal } from "@xterm/xterm";
 import { FitAddon } from "@xterm/addon-fit";
 import { WebLinksAddon } from "@xterm/addon-web-links";
-import { useSocket } from "../hooks/useSocket";
+import { useSocket } from "@/hooks/useSocket";
 
 export default function Home() {
   const [isConnected, setIsConnected] = useState(false);
