@@ -48,9 +48,24 @@ export async function createContainer(imageName: string, cmd?: string[]) {
         }
     }
     const newContainer = await docker.createContainer(containerCreateData);
-    await newContainer.start();
+    // await newContainer.start();
 
     const containerInfo = await docker.getContainer(newContainer.id);
     const containerDetails = await containerInfo.inspect();
     return await containerDetails;
+}
+
+export async function startContainer(containerId: string){
+    try {
+        const container = await docker.getContainer(containerId);
+        if(!container){
+            console.log("Container not found.")
+            return null;
+        }
+        await container.start();
+        return containerId;
+    } catch(e){
+        console.log("Error starting container: ", e);
+        return null;
+    }
 }
