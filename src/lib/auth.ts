@@ -16,7 +16,7 @@ export const NEXTAUTH_CONFIG = {
         const user = await prisma.user.create({
           data: {
             username: newUsername,
-            email: `${newUsername}@example.com`,
+            email: `${(newUsername.replace(' ', '_'))}@example.com`,
             provider: "credentials",
           }
         });

@@ -12,5 +12,14 @@ export default function randomUsername() {
         "trusting", "unruffled", "upbeat", "vibrant", "vigilant", "wizardly"
     ];
 
-    return adjectives[Math.floor(Math.random() * adjectives.length)]
+    const nouns = [
+        "panda", "tiger", "unicorn", "phoenix", "dragon", "wolf", "eagle",
+        "whale", "dolphin", "lion", "shark", "bear", "falcon", "hawk",
+        "octopus", "penguin", "raven", "butterfly", "swan", "zebra"
+    ];
+
+    const randomAdjective = adjectives[Math.floor(Math.random() * adjectives.length)];
+    const randomNoun = nouns[Math.floor(Math.random() * nouns.length)];
+
+    return `${randomAdjective} ${randomNoun}`;
 }
