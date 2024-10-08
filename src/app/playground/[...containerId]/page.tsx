@@ -1,59 +1,123 @@
-"use client";
+"use client"
 
-import { validateUser } from "@/app/actions/validatePlayground";
-import { Topbar } from "@/components/Topbar";
-import { FloatingDock } from "@/components/ui/floating-dock";
-import { Code2 } from "lucide-react";
-import { redirect, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { validateUser } from "@/app/actions/validatePlayground"
+import BrowserComponent from "@/components/Browser"
+import TerminalComponent from "@/components/TerminalComponent"
+import { Button } from "@/components/ui/button"
+import { IconBrowser } from "@tabler/icons-react"
+import { Code2Icon, Terminal } from "lucide-react"
+import { useRouter } from "next/navigation"
+import { useEffect, useState, useRef } from "react"
 
-export default function Page({ params }: { params: { containerId: string } }) {
-  const [loading, setLoading] = useState(true); // Corrected 'loding' to 'loading'
-  const router = useRouter();
+enum TabType {
+  CODE,
+  TERMINAL,
+  WEBVIEW,
+}
+
+interface TabData {
+  type: TabType
+  title: string
+  icon: React.ReactNode
+  content: React.ReactNode
+}
+
+export default function Component({ params }: { params: { containerId: string } }) {
+  const [loading, setLoading] = useState(true)
+  const router = useRouter()
+  const [activeTabIndex, setActiveTabIndex] = useState(0)
+  const [tabs, setTabs] = useState<TabData[]>([])
+
+  const codeRef = useRef<HTMLIFrameElement>(null)
+  const webviewRef = useRef<HTMLIFrameElement>(null)
 
   useEffect(() => {
     const validate = async () => {
-      const isValid = await validateUser(params.containerId[0]);
+      const isValid = await validateUser(params.containerId[0])
       if (!isValid) {
-        console.log(
-          "Invalid user or container OR this container is not allocated to this user."
-        );
-        router.push('/');
-      } else setLoading(false);
-    };
-    validate();
-  }, [params]);
+        console.log("Invalid user or container OR this container is not allocated to this user.")
+        router.push("/")
+      } else {
+        setLoading(false)
+        initializeTabs()
+      }
+    }
+    validate()
+  }, [params, router])
 
-  const items = [
-    {
-      title: "VS Code",
-      icon: <img src="/vscode.png" className="" alt="VS" />,
-      href: "#",
-    },
-    {
-      title: "Terminal",
-      icon: <img src="/terminal.png" className="" alt="VS" />,
-      href: "#",
-    },
-  ];
-
-  if (loading) { // Corrected 'loding' to 'loading'
-    return <>Loading</>;
-  } else {
-    return (
-      <>
-        <div className="bg-macOS-catalina-dark bg-cover bg-center min-h-screen flex flex-col justify-between">
-          <div className="fixed top-0 mx-auto my-auto flex bg-primary/10 w-full">
-            <Topbar />
-          </div>
-
-          <div></div>
-
-          <div className="fixed bottom-0 mb-2 mx-auto flex justify-center flex-col w-full">
-            <FloatingDock items={items} />
-          </div>
-        </div>
-      </>
-    );
+  const initializeTabs = () => {
+    setTabs([
+      {
+        type: TabType.CODE,
+        title: "Code Editor",
+        icon: <Code2Icon className="w-4 h-4" />,
+        content: (
+          <iframe
+            ref={codeRef}
+            src="http://localhost:8080/"
+            className="w-full h-full border-none"
+            title="Code"
+          />
+        ),
+      },
+      {
+        type: TabType.TERMINAL,
+        title: "Terminal",
+        icon: <Terminal className="w-4 h-4" />,
+        content: <TerminalComponent />,
+      },
+      {
+        type: TabType.WEBVIEW,
+        title: "Web View",
+        icon: <IconBrowser className="w-4 h-4" />,
+        content: (
+          <BrowserComponent/>
+        ),
+      },
+    ])
   }
+
+  const handleTabClick = (index: number) => {
+    setActiveTabIndex(index)
+  }
+
+  if (loading) {
+    return <div className="flex items-center justify-center h-screen bg-zinc-900 text-white">Loading...</div>
+  }
+
+  return (
+    <div className="bg-zinc-900 h-screen w-screen flex flex-col gap-2">
+      <div className="flex bg-zinc-800 w-full border-b border-zinc-700">
+        <div className="flex flex-row w-full px-2 gap-4 my-1">
+          {tabs.map((tab, index) => (
+            <Button
+              key={index}
+              variant="ghost"
+              className={`flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors duration-200 ${
+                activeTabIndex === index
+                  ? "text-white bg-zinc-700"
+                  : "text-zinc-400 hover:text-white hover:bg-zinc-700"
+              }`}
+              onClick={() => handleTabClick(index)}
+            >
+              {tab.icon}
+              <span>{tab.title}</span>
+            </Button>
+          ))}
+        </div>
+      </div>
+      <div className="flex-grow flex overflow-auto rounded">
+        {tabs.map((tab, index) => (
+          <div
+            key={index}
+            className={`w-full h-full${
+              activeTabIndex === index ? "opacity-100 visible" : "opacity-0 invisible absolute"
+            }`}
+          >
+            {tab.content}
+          </div>
+        ))}
+      </div>
+    </div>
+  )
 }
